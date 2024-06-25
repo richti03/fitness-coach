@@ -85,3 +85,25 @@ div .progress {
     margin-top: 20px;
     font-size: 24px;
 }
+
+#workout-plan-container {
+    display: none; /* Standardmäßig ausgeblendet */
+}
+
+#workout-plan-container.ng-show {
+    display: block; /* Einblenden, wenn ng-show=true */
+}
+
+#workout-plan ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#workout-plan li {
+    margin: 5px 0;
+}
+
+#workout-plan p {
+    margin-top: 20px;
+    font-weight: bold;
+}
