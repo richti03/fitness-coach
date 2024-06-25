@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitnesstrainer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico|Roboto">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Dein Fitnesstrainer</h1>
+    <div class="controls">
+        <label for="duration">Trainingsdauer (Minuten):</label>
+        <input type="number" id="duration" min="5" max="30" step="1">
+
+        <label for="difficulty">Schwierigkeitsgrad:</label>
+        <input type="number" id="difficulty" min="1" max="5" step="1">
+
+        <button id="start-training">Training starten</button>
+    </div>
+    <div id="timer-container" style="display:none;">
+        <div id="bigCircle">
+            <div class="progress-wrapper">
+                <div class="progress" id="timer"></div>
+                <div class="circle-progress" id="circle-progress"></div>
+            </div>
+        </div>
+        <div id="message">Mach dich bereit!</div>
+    </div>
+    <div id="workout-plan" style="display:none;"></div>
+</div>
+
+<audio id="beep-sound" src="audio/gong.mp3" preload="auto"></audio>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-svg-round-progressbar/0.4.8/roundProgress.min.js"></script>
+<script src="js/progressbar.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
