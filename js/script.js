@@ -27,34 +27,68 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
         $scope.myTimer = 15;
         $scope.myFixedTimer = 15;
         let myTimerVariable;
+        let workoutPlan = [];
+        let currentExerciseIndex = -1;
+        let inPause = false;
 
         $scope.color = "#4caf50";
         $scope.bgcolor = "#a5d6a7";
 
-        let myCustomTimer = function() {
-            $scope.myTimer--;
-            if ($scope.myTimer <= 0) {
-                $scope.stop();
-                document.getElementById('beep-sound').play();
-                document.getElementById('message').textContent = 'Training beginnt!';
-                generateWorkout();
-                return;
+        function startTimer(duration, message, callback) {
+            $scope.myTimer = duration;
+            $scope.myFixedTimer = duration;
+            document.getElementById('message').textContent = message;
+
+            function timerTick() {
+                $scope.myTimer--;
+                if ($scope.myTimer <= 0) {
+                    $timeout.cancel(myTimerVariable);
+                    document.getElementById('gong-sound').play();
+                    callback();
+                    return;
+                }
+                myTimerVariable = $timeout(timerTick, 1000);
             }
-            myTimerVariable = $timeout(myCustomTimer, 1000);
-        };
+
+            myTimerVariable = $timeout(timerTick, 1000);
+        }
+
+        function nextStep() {
+            if (inPause) {
+                currentExerciseIndex++;
+                if (currentExerciseIndex < workoutPlan.length) {
+                    inPause = false;
+                    const exercise = workoutPlan[currentExerciseIndex];
+                    startTimer(exercise.duration, exercise.name, nextStep);
+                } else {
+                    $scope.showTimer = false;
+                    document.getElementById('message').textContent = 'Training beendet!';
+                }
+            } else {
+                if (currentExerciseIndex === -1) {
+                    currentExerciseIndex++;
+                    const exercise = workoutPlan[currentExerciseIndex];
+                    startTimer(exercise.duration, exercise.name, nextStep);
+                } else if (currentExerciseIndex < workoutPlan.length - 1) {
+                    inPause = true;
+                    startTimer(15, 'Pause', nextStep);
+                } else {
+                    currentExerciseIndex++;
+                    if (currentExerciseIndex < workoutPlan.length) {
+                        const exercise = workoutPlan[currentExerciseIndex];
+                        startTimer(exercise.duration, exercise.name, nextStep);
+                    } else {
+                        $scope.showTimer = false;
+                        document.getElementById('message').textContent = 'Training beendet!';
+                    }
+                }
+            }
+        }
 
         $scope.startTraining = function() {
             $scope.showTimer = true;
-            $scope.myTimer = 15;
-            $scope.myFixedTimer = 15;
-            $scope.color = "#4caf50";
-            $scope.bgcolor = "#a5d6a7";
-
-            myTimerVariable = $timeout(myCustomTimer, 1000);
-        };
-
-        $scope.stop = function() {
-            $timeout.cancel(myTimerVariable);
+            generateWorkout();
+            startTimer(15, 'Mach dich bereit!', nextStep);
         };
 
         function generateWorkout() {
@@ -62,7 +96,7 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
             const difficulty = $scope.difficulty;
 
             let remainingTime = duration;
-            const workoutPlan = [];
+            workoutPlan = [];
             const usedExercises = new Set();
 
             while (remainingTime > 0) {
@@ -75,7 +109,7 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
                     workoutPlan.push(exercise);
                     usedExercises.add(exercise.name);
                     remainingTime -= exercise.duration;
-                    if (remainingTime > 0) remainingTime -= 15;
+                    if (remainingTime > 0 && workoutPlan.length > 0) remainingTime -= 15; // Nur Pause, wenn nicht die letzte Übung
                 } else {
                     break;
                 }
