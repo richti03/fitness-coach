@@ -1,27 +1,18 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitnesstrainer</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico|Roboto">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
 </head>
-<body ng-app="pomApp" ng-controller="pomCtrl">
-<div class="container">
-    <h1>Dein Fitnesstrainer</h1>
-    <div class="controls" ng-show="!showTimer">
-        <label for="duration">Trainingsdauer (Minuten):</label>
-        <input type="number" id="duration" min="5" max="30" step="1" ng-model="duration">
-
-        <label for="difficulty">Schwierigkeitsgrad:</label>
-        <input type="number" id="difficulty" min="1" max="5" step="1" ng-model="difficulty">
-
-        <button ng-click="startTraining()">Training starten</button>
-    </div>
-    <div id="timer-container" ng-show="showTimer">
+<body>
+<div class="container-fluid" ng-app="pomApp" ng-controller="pomCtrl">
+    <div class="main_content">
+        <h1>Pomodoro Timer</h1>
+        <br />
         <div id="bigCircle">
             <div class="progress-wrapper">
                 <div class="progress ng-cloak">
@@ -40,7 +31,8 @@
                         responsive="false"
                         duration="500"
                         offset="0"
-                        animation-delay="0">
+                        animation-delay="0"
+                >
                     <svg>
                         <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="0">
                             <stop offset="5%" stop-color="green" />
@@ -50,14 +42,13 @@
                 </div>
             </div>
         </div>
-        <div id="message">Mach dich bereit!</div>
+        <br />
+        <button class="btn btn-success" ng-click="start(15)"><i class="fa fa-play" aria-hidden="true"></i></button>
+        <br />
     </div>
-    <div id="workout-plan" style="display:none;"></div>
 </div>
-
-<audio id="beep-sound" src="audio/gong.mp3" preload="auto"></audio>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-svg-round-progressbar/0.4.8/roundProgress.min.js"></script>
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

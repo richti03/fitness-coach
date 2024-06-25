@@ -21,15 +21,12 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
         };
     })
     .controller('pomCtrl', function($scope, $timeout) {
-        $scope.myTimer = 1500;
+        $scope.myTimer = 15;
+        $scope.myFixedTimer = 15;  // Set the initial value for myFixedTimer
         let myTimerVariable;
 
         $scope.color = "#4caf50";
         $scope.bgcolor = "#a5d6a7";
-        $scope.breakTime = 5;
-        $scope.workTime = 25;
-
-        let bool = false;
 
         let myCustomTimer = function() {
             $scope.myTimer--;
@@ -40,31 +37,16 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
             myTimerVariable = $timeout(myCustomTimer, 1000);
         };
 
-        $scope.start = function() {
-            if (!bool) {
-                $scope.myTimer = $scope.workTime * 60;
-                $scope.color = "#4caf50";
-                $scope.bgcolor = "#a5d6a7";
-            } else {
-                $scope.myTimer = $scope.breakTime * 60;
-                $scope.color = "#d32f2f";
-                $scope.bgcolor = "#ef9a9a";
-            }
+        $scope.start = function(time) {
+            $scope.myTimer = time;
+            $scope.myFixedTimer = time;  // Update myFixedTimer whenever we start the timer
+            $scope.color = "#4caf50";
+            $scope.bgcolor = "#a5d6a7";
 
-            $scope.myFixedTimer = $scope.myTimer;
             myTimerVariable = $timeout(myCustomTimer, 1000);
         };
 
         $scope.stop = function() {
             $timeout.cancel(myTimerVariable);
-            bool = !bool;
-            if (bool) {
-                $scope.start();
-            }
-        };
-
-        $scope.reset = function() {
-            $timeout.cancel(myTimerVariable);
-            $scope.myTimer = $scope.myFixedTimer;
         };
     });

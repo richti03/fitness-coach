@@ -5,20 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b113e84e-73a0-4996-a57d-a1d3478f19ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/fitness-coach.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/audio/gong.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/progressbar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/progressbar-test/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/progressbar-test/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/progressbar-test/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +66,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\domin\IdeaProjects\fitness-coach" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\domin\IdeaProjects\fitness-coach\js" />
     </key>
@@ -86,7 +82,7 @@
       <option name="presentableId" value="Default" />
       <updated>1719250224053</updated>
       <workItem from="1719250225141" duration="40000" />
-      <workItem from="1719250311810" duration="5077000" />
+      <workItem from="1719250311810" duration="7155000" />
     </task>
     <servers />
   </component>

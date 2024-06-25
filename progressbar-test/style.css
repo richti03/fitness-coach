@@ -1,0 +1,78 @@
+* {
+    font-size: 20px;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+}
+
+.main_content {
+    margin-top: 60px;
+}
+.main_content h1 {
+    font-size: 60px;
+    font-family: "Pacifico",sans-serif;
+}
+.main_content .btn {
+    border-radius: 30px;
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+}
+.main_content .icon {
+    width: 15px;
+    height: 15px;
+}
+
+.fa.fa-play,.fa.fa-stop{
+    margin-top: 6px;
+    cursor: pointer;
+}
+
+
+i {
+    margin:0 10px 0 10px;
+    font-size: 12px;
+    height: 30px;
+    display:table-cell;
+    vertical-align:middle;
+    cursor: pointer;
+    user-select: none;
+}
+
+span.timeLength{
+    font-size: 26px;
+
+}
+
+
+
+div.progress {
+    position: absolute;
+    color: black;
+    font-weight: 100;
+    line-height: 2;
+    top: 50%;
+    bottom: auto;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -moz-transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    font-size: 30px;
+    z-index: 99;
+    background-color: transparent;
+}
+
+div.progress-wrapper {
+    position: relative;
+}
+
+.container.setting{
+    /*margin:10px;*/
+    padding:40px;
+
+}
+
+.breakL,.workL{
+    margin:10px;
+    padding:5px;
+}
