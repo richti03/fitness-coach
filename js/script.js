@@ -1,3 +1,4 @@
+// AngularJS Modul Definition mit der Abhängigkeit 'angular-svg-round-progressbar'
 angular.module("pomApp", ['angular-svg-round-progressbar'])
     .filter('time', function() {
         return function(input) {
@@ -20,25 +21,37 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
             return out;
         };
     })
+
     .controller('pomCtrl', function($scope, $timeout) {
+        // Initiale Werte für Trainingsdauer und Schwierigkeitsgrad
         $scope.duration = 5;
         $scope.difficulty = 1;
+
+        // Flag zum Anzeigen des Timers und des Trainingsplans
         $scope.showTimer = false;
+        $scope.showWorkoutPlan = false;
+
+        // Initiale Werte für den Timer
         $scope.myTimer = 15;
         $scope.myFixedTimer = 15;
+
+        // Variablen zur Steuerung des Trainingsablaufs
         let myTimerVariable;
         let workoutPlan = [];
         let currentExerciseIndex = -1;
         let inPause = false;
 
+        // Farben für den Timer
         $scope.color = "#4caf50";
         $scope.bgcolor = "#a5d6a7";
 
+        // Funktion zum Starten des Timers
         function startTimer(duration, message, callback) {
             $scope.myTimer = duration;
             $scope.myFixedTimer = duration;
             document.getElementById('message').textContent = message;
 
+            // Funktion zum Aktualisieren des Timers jede Sekunde
             function timerTick() {
                 $scope.myTimer--;
                 if ($scope.myTimer <= 0) {
@@ -53,44 +66,56 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
             myTimerVariable = $timeout(timerTick, 1000);
         }
 
+        // Vereinfachte Funktion zum Wechseln zwischen Übungen und Pausen
         function nextStep() {
+            console.log("inPause: " + inPause);
+            console.log(currentExerciseIndex);
+            console.log(workoutPlan.length);
             if (inPause) {
-                currentExerciseIndex++;
-                if (currentExerciseIndex < workoutPlan.length) {
-                    inPause = false;
-                    const exercise = workoutPlan[currentExerciseIndex];
-                    startTimer(exercise.duration, exercise.name, nextStep);
-                } else {
-                    $scope.showTimer = false;
-                    document.getElementById('message').textContent = 'Training beendet!';
-                }
+                // Pause beginnen
+                inPause = false;
+                // Starten des Timers für die Pause
+                startTimer(15, 'Pause', nextStep);
             } else {
-                if (currentExerciseIndex === -1) {
-                    currentExerciseIndex++;
-                    const exercise = workoutPlan[currentExerciseIndex];
-                    startTimer(exercise.duration, exercise.name, nextStep);
-                } else if (currentExerciseIndex < workoutPlan.length - 1) {
-                    inPause = true;
-                    startTimer(15, 'Pause', nextStep);
+                // Erhöhe den Index der aktuellen Übung
+                currentExerciseIndex++;
+
+                // Pause beenden
+                inPause = true;
+                // Holen der nächsten Übung aus dem Trainingsplan
+                const exercise = workoutPlan[currentExerciseIndex];
+
+                // Prüfen, ob noch Übungen im Trainingsplan verbleiben
+                if (currentExerciseIndex === workoutPlan.length - 1) {
+                    console.log("DISPLAY WORKOUT");
+                    // Starten des Timers für die nächste Übung
+                    startTimer(exercise.duration, exercise.name, displayWorkoutPlan);
                 } else {
-                    currentExerciseIndex++;
-                    if (currentExerciseIndex < workoutPlan.length) {
-                        const exercise = workoutPlan[currentExerciseIndex];
-                        startTimer(exercise.duration, exercise.name, nextStep);
-                    } else {
-                        $scope.showTimer = false;
-                        document.getElementById('message').textContent = 'Training beendet!';
-                    }
+                    // Starten des Timers für die nächste Übung
+                    startTimer(exercise.duration, exercise.name, nextStep);
                 }
+
             }
         }
 
+        // Funktion zum Starten des Trainings
         $scope.startTraining = function() {
             $scope.showTimer = true;
             generateWorkout();
+            // Setze den Index der aktuellen Übung auf -1, um das Training zu starten
+            currentExerciseIndex = -1;
+            inPause = false;
+            // Starten des Timers für die erste Pause, bevor die Übungen beginnen
             startTimer(15, 'Mach dich bereit!', nextStep);
         };
 
+        // Funktion zum Zurücksetzen des Trainings
+        $scope.reset = function() {
+            $scope.showWorkoutPlan = false;
+            $scope.showTimer = false;
+        };
+
+        // Funktion zur Generierung des Trainingsplans basierend auf Dauer und Schwierigkeitsgrad
         function generateWorkout() {
             const duration = $scope.duration * 60; // in Sekunden
             const difficulty = $scope.difficulty;
@@ -118,7 +143,24 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
             logWorkout(workoutPlan, duration - remainingTime);
         }
 
+        // Funktion zum Loggen und Anzeigen des Trainingsplans
         function logWorkout(plan, actualDuration) {
+            const workoutPlanContainer = document.getElementById('workout-plan');
+            workoutPlanContainer.innerHTML = ''; // Clear previous plan
+
+            const planList = document.createElement('ul');
+            plan.forEach((exercise, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${index + 1}. ${exercise.name} - ${exercise.duration} Sekunden ${exercise.switchSides ? '(Seitenwechsel)' : ''}`;
+                planList.appendChild(listItem);
+            });
+
+            const totalDuration = document.createElement('p');
+            totalDuration.textContent = `Gesamtdauer: ${Math.floor(actualDuration / 60)} Minuten und ${actualDuration % 60} Sekunden (inklusive Pausen)`;
+
+            workoutPlanContainer.appendChild(planList);
+            workoutPlanContainer.appendChild(totalDuration);
+
             console.clear();
             console.log('Trainingsplan:');
             plan.forEach((exercise, index) => {
@@ -127,8 +169,18 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
 
             console.log(`Gesamtdauer: ${Math.floor(actualDuration / 60)} Minuten und ${actualDuration % 60} Sekunden (inklusive Pausen)`);
         }
+
+        // Funktion zum Anzeigen des Trainingsplans
+        function displayWorkoutPlan() {
+            $scope.showTimer = false;
+            $scope.showWorkoutPlan = true;
+            console.log("in fuction");
+            const workoutPlanContainer = document.getElementById('workout-plan-container');
+            workoutPlanContainer.style.display = 'block';
+        }
     });
 
+// Liste der verfügbaren Übungen
 const exercises = [
     { name: "Jumping Jacks", duration: 30, difficulty: 1, switchSides: false },
     { name: "Jumping Jacks", duration: 60, difficulty: 2, switchSides: false },
