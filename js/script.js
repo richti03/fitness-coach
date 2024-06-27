@@ -179,31 +179,3 @@ angular.module("pomApp", ['angular-svg-round-progressbar'])
             workoutPlanContainer.style.display = 'block';
         }
     });
-
-// Liste der verfügbaren Übungen
-const exercises = [
-    { name: "Jumping Jacks", duration: 30, difficulty: 1, switchSides: false },
-    { name: "Jumping Jacks", duration: 60, difficulty: 2, switchSides: false },
-    { name: "Push Ups", duration: 30, difficulty: 2, switchSides: false },
-    { name: "Push Ups", duration: 60, difficulty: 3, switchSides: false },
-    { name: "Plank", duration: 30, difficulty: 2, switchSides: false },
-    { name: "Plank", duration: 60, difficulty: 3, switchSides: false },
-    { name: "Lunges", duration: 30, difficulty: 1, switchSides: true },
-    { name: "Lunges", duration: 60, difficulty: 2, switchSides: true },
-    { name: "Squats", duration: 30, difficulty: 1, switchSides: false },
-    { name: "Squats", duration: 60, difficulty: 2, switchSides: false },
-    { name: "Burpees", duration: 30, difficulty: 3, switchSides: false },
-    { name: "Burpees", duration: 60, difficulty: 4, switchSides: false },
-    { name: "High Knees", duration: 30, difficulty: 2, switchSides: false },
-    { name: "High Knees", duration: 60, difficulty: 3, switchSides: false },
-    { name: "Mountain Climbers", duration: 30, difficulty: 2, switchSides: false },
-    { name: "Mountain Climbers", duration: 60, difficulty: 3, switchSides: false },
-    { name: "Bicycle Crunches", duration: 30, difficulty: 2, switchSides: true },
-    { name: "Bicycle Crunches", duration: 60, difficulty: 3, switchSides: true },
-    { name: "Leg Raises", duration: 30, difficulty: 2, switchSides: false },
-    { name: "Leg Raises", duration: 60, difficulty: 3, switchSides: false },
-    { name: "Tricep Dips", duration: 30, difficulty: 2, switchSides: false },
-    { name: "Tricep Dips", duration: 60, difficulty: 3, switchSides: false },
-    { name: "Side Plank", duration: 30, difficulty: 2, switchSides: true },
-    { name: "Side Plank", duration: 60, difficulty: 3, switchSides: true }
-];
